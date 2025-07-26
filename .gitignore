@@ -1,0 +1,14 @@
+.idea/
+backend/logs/
+logs/
+dump.rdb
+.VSCodeCounter/
+sessions/
+技术实现详解.md
+项目介绍.md
+results/
+uploads/
+数据库设计说明书.md/
+系统架构设计说明书.md/
+report.md/
+backend/models/

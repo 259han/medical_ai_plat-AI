@@ -1,0 +1,39 @@
+training:
+  output_dir: "./models/qwen_medical_finetuned"
+  num_train_epochs: 3               #简单-3
+  per_device_train_batch_size: 4    #简单-1
+  per_device_eval_batch_size:  4    #简单-1
+  learning_rate: 3e-6               #简单-1e-5
+  warmup_steps: 1000                #简单-1000
+  weight_decay: 0.01
+  logging_dir: "./logs"
+  gradient_accumulation_steps: 2    #简单-4
+  evaluation_strategy: "no"
+  eval_steps: 10
+  save_strategy: "no"
+  save_steps: 10
+  fp16: true                        #关闭FP16
+  bf16: false                       #关闭BF16
+  logging_steps: 100
+  report_to: "none"
+  max_length: 128
+  save_total_limit: 1             # 只保留1个最终模型
+  disable_tqdm: false             # 确保进度条启用（默认就是false）
+  eval_strategy: "steps"          # 保持现有设置
+  load_best_model_at_end: false   # 保持启用
+  max_grad_norm: 0.5              # 添加梯度裁剪，简单-1.0
+  lr_scheduler_type: "cosine"     # 使用余弦退火，避免激进衰减
+  adam_epsilon: 1e-6              # 防止除零错误
+  gradient_checkpointing: true    # 关键！节省30%显存，*
+  optim: "adamw_torch_fused"      # 使用原生AdamW，*
+
+
+model:
+  pretrained_name: "./models/Qwen1.5-0.5B"
+  torch_dtype: "auto"
+  max_length: 256
+
+data:
+  train_data_path: "./data/processed/20000.json"
+  train_test_split: 0.05
+  random_state: 42
